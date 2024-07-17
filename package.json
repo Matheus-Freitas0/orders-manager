@@ -1,11 +1,14 @@
 {
   "name": "orders-manager",
   "version": "1.0.0",
-  "description": "node training",
+  "description": "A Node.js application for managing orders",
   "main": "main.js",
   "scripts": {
-    "build" : "tsc",
-    "start" : "npm run build && node dist/src/main"
+    "build": "tsc",
+    "start": "ts-node src/main.ts",
+    "dev": "nodemon src/main.ts",
+    "test": "jest",
+    "debug": "tsc && node --inspect-brk dist/src/main.js"
   },
   "repository": {
     "type": "git",
@@ -17,16 +20,22 @@
     "url": "https://github.com/Matheus-Freitas0/orders-manager/issues"
   },
   "homepage": "https://github.com/Matheus-Freitas0/orders-manager#readme",
+  "keywords": [
+    "nodejs",
+    "typescript",
+    "orders",
+    "management"
+  ],
   "devDependencies": {
     "@types/jest": "^29.5.12",
     "@types/node": "^20.14.11",
     "jest": "^29.7.0",
     "nodemon": "^3.1.4",
     "ts-jest": "^29.2.2",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.3"
   },
   "dependencies": {
-    "dotenv": "^16.4.5",
-    "typescript": "^5.5.3"
+    "dotenv": "^16.4.5"
   }
 }
