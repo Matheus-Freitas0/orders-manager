@@ -1,0 +1,32 @@
+{
+  "name": "orders-manager",
+  "version": "1.0.0",
+  "description": "node training",
+  "main": "main.js",
+  "scripts": {
+    "build" : "tsc",
+    "start" : "npm run build && node dist/src/main"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Matheus-Freitas0/orders-manager.git"
+  },
+  "author": "Matheus Freitas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Matheus-Freitas0/orders-manager/issues"
+  },
+  "homepage": "https://github.com/Matheus-Freitas0/orders-manager#readme",
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.14.11",
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.4",
+    "ts-jest": "^29.2.2",
+    "ts-node": "^10.9.2"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "typescript": "^5.5.3"
+  }
+}
