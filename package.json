@@ -6,8 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start": "ts-node src/main.ts",
-    "dev": "nodemon src/main.ts",
-    "test": "jest",
+    "start:dev":"nodemon",
     "debug": "tsc && node --inspect-brk dist/src/main.js"
   },
   "repository": {
