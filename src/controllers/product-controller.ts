@@ -1,7 +1,9 @@
 import { Request, Response } from "express";
 import { Product } from "../models/product";
+import { ProductRepository } from "../repositories/product.repository";
+import { DatasourceConfig } from "../config/datasource.config";
 
-const products: Product[] = [
+let products: Product[] = [
     new Product("xyz789", "teclado logitech", 100, 20, true),
     new Product("abc123", "mouse Razer", 150, 30, false),
     new Product("def456", "monitor Samsung", 1200, 10, true),
@@ -19,9 +21,13 @@ function getProduct(req: Request): any {
     return products.find(item => item.getCode() === productCode);
 }
 
+const datasource = new DatasourceConfig()
+const productRepository = new ProductRepository(datasource)
+
 export class ProductController {
     
-    getProducts(req: Request, res: Response) {
+    async getProducts(req: Request, res: Response){
+        const products = await productRepository.getProducts()
         return res.status(200).json(products);
     }
 
