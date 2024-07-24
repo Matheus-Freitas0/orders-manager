@@ -14,6 +14,10 @@ const products: Product[] = [
     new Product("yzA567", "SSD Kingston 1TB", 500, 20, true)
 ];
 
+function getProduct(req: Request): any {
+    const productCode = req.params.code
+    return products.find(item => item.getCode() === productCode);
+}
 
 export class ProductController {
     
@@ -22,8 +26,7 @@ export class ProductController {
     }
 
     getProductByCode(req: Request, res: Response){
-        const productCode = req.params.code
-        const product = products.find(item => item.getCode() === productCode);
+        const product = getProduct(req)
         
         if(!!product)
             return res.status(200).json(product);
@@ -32,8 +35,7 @@ export class ProductController {
     }
     
     activeProductByCode(req: Request, res: Response){
-        const productCode = req.params.code
-        const product = products.find(item => item.getCode() === productCode);
+        const product = getProduct(req)
 
         if(!!product){
             product.setActive(true)
@@ -43,8 +45,7 @@ export class ProductController {
     }
     
     deactivateProductByCode(req: Request, res: Response){
-        const productCode = req.params.code
-        const product = products.find(item => item.getCode() === productCode);
+        const product = getProduct(req)
 
         if(!!product){
             product.setActive(false)
@@ -65,8 +66,7 @@ export class ProductController {
     }
     
     updateProduct(req: Request, res: Response){
-        const productCode = req.params.code
-        const product = products.find(item => item.getCode() === productCode);
+        const product = getProduct(req)
         
         if(!!product){
             product.updateProduct(req.body)
@@ -74,9 +74,9 @@ export class ProductController {
         }
         return res.status(404).json({message : 'product not found'});
     }
+
     deleteProductByCode(req: Request, res: Response){
-        const productCode = req.params.code
-        const product = products.find(item => item.getCode() === productCode);
+        const product = getProduct(req)
     
         if(!!product){
             products.splice(products.indexOf(product), 1)
@@ -85,8 +85,4 @@ export class ProductController {
         return res.status(404).json({message : 'product not found'});
     }
     
-    // private getProduct(req: Request): any {
-    //     const productCode = req.params.code
-    //     return products.find(item => item.getCode() === productCode);
-    // }
 }
