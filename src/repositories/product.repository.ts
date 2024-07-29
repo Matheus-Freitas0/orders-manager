@@ -2,7 +2,6 @@ import { Product } from '../models/product'
 import { DatasourceConfig } from '../config/datasource.config'
 import queries from '../../files/products-queries.json'
 
-
 export class ProductRepository {
 
     constructor(private datasourceConfig: DatasourceConfig) {}

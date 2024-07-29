@@ -1,0 +1,4 @@
+{
+    "create": "INSERT INTO customers (name, document) VALUES (?, ?)",
+    "getByDocument": "SELECT * FROM customers c WHERE c.document = ?"
+}
