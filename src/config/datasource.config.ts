@@ -7,7 +7,7 @@ export class DatasourceConfig{
 
     constructor(){
         const connectionPool = mysql.createPool({
-            host: '192.168.15.9',
+            host: '192.168.15.3',
             port: 3306,
             user: 'root',
             password: 'root',

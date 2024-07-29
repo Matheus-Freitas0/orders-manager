@@ -1,0 +1,8 @@
+{
+    "getAll": "SELECT * FROM products",
+    "getByCode": "SELECT * FROM products p WHERE p.code = ?",
+    "updateActive": "UPDATE products SET active = ? WHERE code = ?",
+    "create": "INSERT INTO products (code, name, value, stock, category_id, active) VALUES (?, ?, ?, ?, ?, ?)",
+    "update": "UPDATE products SET name = ?, value = ?, stock = ? WHERE code = ?",
+    "delete": "DELETE FROM products p WHERE p.code = ?"
+}
