@@ -1,0 +1,3 @@
+{
+    "getAll": "SELECT * FROM categories"   
+}

@@ -1,16 +1,17 @@
 import express from 'express'
 import { Router } from 'express-serve-static-core'
-import { ProductController } from '../controllers/product-controller'
+import { ProductController } from '../controllers/product.controller'
 
 const router: Router = express.Router()
-const Controller = new ProductController()
+const controller = new ProductController()
 
-router.get("/", Controller.getProducts)
-router.get("/:code", Controller.getProductByCode)
-router.patch("/:code/active", Controller.activeProductByCode)
-router.patch("/:code/deactivate", Controller.deactivateProductByCode)
-router.post("/" , Controller.createProduct)
-router.put("/:code", Controller.updateProduct)
-router.delete("/:code", Controller.deleteProductByCode)
-        
+router.get('/', controller.getProducts)
+router.get('/categories', controller.getCategories)
+router.get('/:code', controller.getProductByCode)
+router.put('/:code', controller.updateProduct)
+router.patch('/:code/active', controller.activeProduct)
+router.patch('/:code/deactivate', controller.deactivateProduct)
+router.post('/', controller.createProduct)
+router.delete('/:code', controller.deleteProductByCode)
+
 export default router

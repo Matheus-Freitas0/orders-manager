@@ -12,8 +12,8 @@ DROP TABLE IF EXISTS categories;
 
 CREATE TABLE customers (
 	id					INT 			NOT NULL PRIMARY KEY AUTO_INCREMENT	,
-	name			    VARCHAR(255)	NOT NULL							,
-	document	        VARCHAR(30)		NOT NULL UNIQUE
+	first_name			VARCHAR(255)	NOT NULL							,
+	customer_document	VARCHAR(30)		NOT NULL
 )
 
 CREATE TABLE categories (
