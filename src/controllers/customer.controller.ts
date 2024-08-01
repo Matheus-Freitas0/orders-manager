@@ -5,7 +5,7 @@ import { Inject } from '../config/container.config'
 
 export class CustomerController {
 
-    @Inject('customerSvc') service?: CustomerService
+    @Inject('customerSvc') service!: CustomerService
 
     constructor () {
 
@@ -16,7 +16,7 @@ export class CustomerController {
     async create (req: Request, res: Response) {
         try {
             const bodyRequest: Customer = req.body 
-            const customer = await this.service?.create(bodyRequest)
+            const customer = await this.service.create(bodyRequest)
             res.status(201).json(customer)    
         } 
         catch (error: any) {
@@ -26,7 +26,7 @@ export class CustomerController {
 
     async getByDocument (req: Request, res: Response) {
         try {
-            const customer = await this.service?.getByDocument(req.params.document)
+            const customer = await this.service.getByDocument(req.params.document)
             return res.status(200).json(customer)    
 
         } catch (error: any) {
