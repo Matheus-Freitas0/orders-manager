@@ -1,25 +1,19 @@
-import { CustomerRepository } from "../customer.repository";
-import { Repository } from "../repository";
-import { Customer } from "../../models/customer";
-import queries from "../../../files/customers-queries.json"
-import { DatasourceConfig } from "../../config/datasource.config";
+import { Repository } from '../repository'
+import { Customer } from '../../models/customer'
+import { CustomerRepository } from '../customer.repository'
+import queries from '../../../files/customers-queries.json'
 
-export class CustomerRepositoryImpl extends Repository implements CustomerRepository{
-    
-    constructor(){
-        super(new DatasourceConfig())
-    }
+export class CustomerRepositoryImpl extends Repository implements CustomerRepository {
 
     async create (customer: Customer): Promise<Customer> {
-        const conn = await this.datasource.connection.getConnection() 
-        await conn.query(queries.create, [customer.name, customer.document])
+        await this.datasource.query(queries.create, customer.name, customer.document)
         return await this.getByDocument(customer.document)
     }
 
-    async getByDocument(document: string): Promise<Customer> {
-        const conn = await this.datasource.connection.getConnection()
-        const data = await conn.query(queries.getByDocument,[document])
+    async getByDocument (document: string): Promise<Customer> {
+        const data = await this.datasource.query(queries.getByDocument, document)
         const resultSet = data[0] as Customer[]
-        return resultSet[0] as Customer
+        return resultSet[0] as Customer        
     }
+
 }

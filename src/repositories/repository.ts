@@ -1,7 +1,9 @@
-import { DatasourceConfig } from "../config/datasource.config";
+import { Inject } from '../config/container.config'
+import { Datasource } from '../config/database/datasource'
 
 export abstract class Repository {
-   
-    constructor(protected readonly datasource: DatasourceConfig){}
+
+    @Inject('mysql')
+    protected readonly datasource!: Datasource
 
 }

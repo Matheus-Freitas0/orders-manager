@@ -44,7 +44,6 @@ export class ProductRepository {
         }
 
         const conn = await this.datasourceConfig.connection.getConnection()
-        const stmt = ''
         await conn.query(queries.update, [body.name, body.value, body.stock, code])
     }
 

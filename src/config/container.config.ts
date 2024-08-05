@@ -1,6 +1,8 @@
 import { OrderValidatorClientImpl } from '../clients/impl/order-validator-client.impl'
 import { CustomerRepositoryImpl } from '../repositories/impl/customer-repository.impl'
 import { CustomerServiceImpl } from '../services/impl/customer-service.impl'
+import { MongoAdapter } from './database/mongo-adapter'
+import { MySqlAdapter } from './database/mysql-adapter'
 
 export class Container {
 
@@ -15,6 +17,8 @@ export class Container {
     }
 
     register () {
+        this.dependencies['mysql'] = new MySqlAdapter()
+        this.dependencies['mongo'] = new MongoAdapter()
         this.dependencies['customerSvc'] = new CustomerServiceImpl()
         this.dependencies['customerRepo'] = new CustomerRepositoryImpl()
         this.dependencies['orderValCli'] = new OrderValidatorClientImpl()
