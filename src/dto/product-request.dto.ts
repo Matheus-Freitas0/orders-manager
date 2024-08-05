@@ -1,9 +1,6 @@
-export type Product = {
-    id: number
-    code: string
+export type ProductRequestDTO = {
     name: string
     value: number
-    active: boolean
     stock: number
     categoryId: number
 }
