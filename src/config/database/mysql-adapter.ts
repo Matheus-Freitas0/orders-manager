@@ -8,7 +8,7 @@ export class MySqlAdapter implements Datasource {
 
     constructor() {
         const connectionPool = mysql.createPool({
-            host: '192.168.15.9',
+            host: process.env.DB_HOST,
             port: 3306,
             user: process.env.DB_USER,
             password: process.env.DB_PASSWORD,
