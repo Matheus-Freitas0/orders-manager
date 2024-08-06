@@ -24,8 +24,7 @@ export class MySqlAdapter implements Datasource {
 
         this.connection = connectionPool.promise()
     }
-
-    // encapsulamento, abstracao
+    
     async query (statement: string, ...params: any): Promise<any> {
         const conn = await this.connection.getConnection()
         try {

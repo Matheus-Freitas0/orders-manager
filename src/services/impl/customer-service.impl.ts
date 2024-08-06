@@ -16,6 +16,8 @@ export class CustomerServiceImpl implements CustomerService {
     }
 
     async getByDocument(document: string): Promise<Customer> {
+        const data: any = await this.repository.getByDocument(document)
+        if (!data) throw new Error('document not found')
         return await this.repository.getByDocument(document) as Customer
     }
 
