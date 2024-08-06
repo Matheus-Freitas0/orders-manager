@@ -1,26 +1,23 @@
-#orders-manager
+# Orders Manager
 
-##basic project dependencies
--dev -> ts-jest
--dev -> ts-node
--dev -> nodemon
--dev -> @types/jest
--dev -> @types/node
--dev -> jest
--typescript
+## Sobre o Projeto
 
-##express (construcao de API)
--npm i express
--npm i @types/express --save-dev
+O projeto 'Orders Manager' é uma aplicação de gerenciamento de pedidos desenvolvida com TypeScript e Express. O objetivo é criar uma API robusta para gerenciar operações de pedidos, integrando com outros sistemas via REST.
 
-#body-parser (serializacao e deserializacao de objetos)
--npm i body-parser
--mysql2
--npm i mysql2
+## Dependências Básicas
 
-#Axios (para integracao entre sistemas via REST)
--npm i axios
--npm i @types/axios --save-dev
+As dependências essenciais para o desenvolvimento do projeto estão listadas abaixo:
 
-#dotenv para gerenciamento das variaves de ambiente
--npm i dotenv
+### Dependências de Desenvolvimento
+
+- `ts-jest`: Ferramenta para execução de testes unitários com suporte ao TypeScript.
+- `ts-node`: Executa o TypeScript diretamente do terminal.
+- `nodemon`: Reinicia automaticamente o servidor ao detectar mudanças nos arquivos.
+- `@types/jest`: Tipagens para o Jest.
+- `@types/node`: Tipagens para o Node.js.
+- `jest`: Framework de testes em JavaScript.
+
+### Instalação das Dependências de Desenvolvimento
+
+```bash
+npm install ts-jest ts-node nodemon @types/jest @types/node jest --save-dev
