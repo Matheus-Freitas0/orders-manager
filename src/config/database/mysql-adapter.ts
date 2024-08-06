@@ -10,8 +10,8 @@ export class MySqlAdapter implements Datasource {
         const connectionPool = mysql.createPool({
             host: '192.168.15.9',
             port: 3306,
-            user: 'root',
-            password: 'root',
+            user: process.env.DB_USER,
+            password: process.env.DB_PASSWORD,
             database: 'db_ecommerce',
             waitForConnections: true,
             connectionLimit: 10,
@@ -31,7 +31,8 @@ export class MySqlAdapter implements Datasource {
             return await conn.query(statement, params)
 
         } catch (error) {
-            console.error(error)
+            throw error
+        
         } finally {
             conn.release()
         }

@@ -1,6 +1,6 @@
+import { Customer } from './../../models/customer';
 import { OrderValidatorClient } from '../../clients/order-validator.client'
 import { Inject } from '../../config/container.config'
-import { Customer } from '../../models/customer'
 import { CustomerRepository } from '../../repositories/customer.repository'
 import { CustomerService } from '../customer.service'
 
@@ -16,9 +16,9 @@ export class CustomerServiceImpl implements CustomerService {
     }
 
     async getByDocument(document: string): Promise<Customer> {
-        const data: any = await this.repository.getByDocument(document)
-        if (!data) throw new Error('document not found')
-        return await this.repository.getByDocument(document) as Customer
+        const customer: any = await this.repository.getByDocument(document)
+        if (!customer) throw new Error('document not found')
+        return await customer
     }
 
 }

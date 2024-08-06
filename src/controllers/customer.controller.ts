@@ -31,12 +31,15 @@ export class CustomerController {
 
     async getByDocument (req: Request, res: Response) {
         try {
-            const customer = await this.service?.getByDocument(req.params.document)
+            const customer = await this.service.getByDocument(req.params.document)
             return res.status(200).json(customer)
 
         } catch (error: any) {
+            if (error.message.includes('not found')){
+                return res.status(404).json({ message: error.message})
+            }
             return res.status(500).json({ message: error.message })  
         }
     }
-    
+
 }

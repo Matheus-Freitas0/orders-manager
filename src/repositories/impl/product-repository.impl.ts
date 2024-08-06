@@ -2,6 +2,7 @@ import { Repository } from '../repository';
 import { ProductRepository } from './../product.repository';
 import queries from '../../../files/products-queries.json'
 import { Product } from '../../models/product';
+import { randomUUID } from 'crypto';
 
 export class ProductRepositoryImpl extends Repository implements ProductRepository {
 
@@ -43,7 +44,8 @@ export class ProductRepositoryImpl extends Repository implements ProductReposito
     }
 
     async createProduct(product: Product): Promise<void> {
-        await this.datasource.query(queries.create, [product.code, product.name, product.value, product.stock, product.categoryId, product.active])
+        const uuid: string = randomUUID()
+        await this.datasource.query(queries.create, uuid, product.name, product.value, product.stock, product.categoryId, product.active)
     }
 
     async updateProduct (code: string, body: any): Promise<void> {
@@ -53,7 +55,7 @@ export class ProductRepositoryImpl extends Repository implements ProductReposito
             throw new Error(`product with code: ${code} not found`)
         }
 
-        await this.datasource.query(queries.update, [body.name, body.value, body.stock, code])
+        await this.datasource.query(queries.update, body.name, body.value, body.stock, code)
     }
 
     async deleteProduct(code: string): Promise<void> {
@@ -63,7 +65,7 @@ export class ProductRepositoryImpl extends Repository implements ProductReposito
             throw new Error(`product with code: ${code} not found`)
         }
         
-        await this.datasource.query(queries.delete, [code])
+        await this.datasource.query(queries.delete, code)
     }
 
     async activateOrDeactivateProduct(code: string, value: boolean): Promise<void> {
@@ -73,7 +75,7 @@ export class ProductRepositoryImpl extends Repository implements ProductReposito
             throw new Error(`product with code: ${code} not found`)
         }
     
-        await this.datasource.query(queries.updateActive, [value, code])
+        await this.datasource.query(queries.updateActive, value, code)
     }
 
 }
