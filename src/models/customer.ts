@@ -1,5 +1,5 @@
 export type Customer = {
-    id?: string
+    id: number
     name: string
     document: string
 }

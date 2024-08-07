@@ -1,6 +1,7 @@
 import mysql from 'mysql2'
 import { Pool } from 'mysql2/promise'
 import { Datasource } from './datasource'
+import environment from '../environments/environments'
 
 export class MySqlAdapter implements Datasource {
 
@@ -8,11 +9,11 @@ export class MySqlAdapter implements Datasource {
 
     constructor() {
         const connectionPool = mysql.createPool({
-            host: process.env.DB_HOST,
-            port: 3306,
-            user: process.env.DB_USER,
-            password: process.env.DB_PASSWORD,
-            database: 'db_ecommerce',
+            port: environment.DB_PORT as number,
+            host: environment.DB_HOST,
+            user: environment.DB_USER,
+            password: environment.DB_PASSWORD,
+            database: environment.DB_NAME,
             waitForConnections: true,
             connectionLimit: 10,
             maxIdle: 10, 

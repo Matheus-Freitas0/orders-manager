@@ -2,10 +2,10 @@ import bodyParser from "body-parser"
 import {Express} from "express-serve-static-core"
 import  express from "express"
 import { RoutesRegistryConfig } from "./routes-registry.config"
+import environment from "./environments/environments"
 
 export class ExpressServerConfig{
     private app : Express
-    private readonly PORT = process.env.APP_PORT || 3000
     private routesRegistryConfig: RoutesRegistryConfig
     constructor(){
         this.app = express()
@@ -17,8 +17,8 @@ export class ExpressServerConfig{
         this.app.use(bodyParser.urlencoded({extended: false}))
     return this
     }
+
     routesRegistry(): ExpressServerConfig{   
-    
         this.app.use(function(req,res, next){
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Headers", "*")
@@ -31,10 +31,12 @@ export class ExpressServerConfig{
     }
 
     startServer(): void {
-        this.app.listen(this.PORT, () =>{
-        console.log(`Server is running on port ${this.PORT}`)
+        this.app.listen(environment.SERVER_PORT, () => {
+            console.log(`server is connected on port: ${environment.SERVER_PORT}`)
+            console.log(`application environment: ${process.env.APP_ENV}`)
+            console.log(`database host: ${environment.DB_HOST}`);                        
         })
     }
-    
+
 }
 
