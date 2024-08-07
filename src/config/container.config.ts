@@ -1,8 +1,10 @@
 import { OrderValidatorClientImpl } from '../clients/impl/order-validator-client.impl'
 import { CategoryRepositoryImpl } from '../repositories/impl/category-repository'
 import { CustomerRepositoryImpl } from '../repositories/impl/customer-repository.impl'
+import { OrderRepositoryImpl } from '../repositories/impl/order-repository.impl'
 import { ProductRepositoryImpl } from '../repositories/impl/product-repository.impl'
 import { CustomerServiceImpl } from '../services/impl/customer-service.impl'
+import { OrderServiceImpl } from '../services/impl/order-service.impl'
 import { ProductServiceImpl } from '../services/impl/product-service.impl'
 import { MongoAdapter } from './database/mongo-adapter'
 import { MySqlAdapter } from './database/mysql-adapter'
@@ -28,6 +30,8 @@ export class Container {
         this.dependencies['categoryRepo'] = new CategoryRepositoryImpl()
         this.dependencies['productRepo'] = new ProductRepositoryImpl()
         this.dependencies['productSvc'] = new ProductServiceImpl()
+        this.dependencies['orderRepo'] = new OrderRepositoryImpl()
+        this.dependencies['orderSvc'] = new OrderServiceImpl()
     }
 
     getDependency (name: string) {

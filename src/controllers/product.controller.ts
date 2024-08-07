@@ -1,5 +1,4 @@
 import { Request, Response } from 'express'
-import { Product } from '../models/product'
 import { Inject } from '../config/container.config'
 import { ProductService } from '../services/product.service'
 import { ProductResponseDTO } from '../dto/product-response.dto'
