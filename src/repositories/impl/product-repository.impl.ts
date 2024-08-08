@@ -1,6 +1,6 @@
 import { Repository } from '../repository';
 import { ProductRepository } from './../product.repository';
-import queries from '../../../files/products-queries.json'
+import queries from '../../../files/queries/products-queries.json'
 import { Product } from '../../models/product';
 import { randomUUID } from 'crypto';
 

@@ -1,4 +1,4 @@
 {
     "create": "INSERT INTO orders (code, customer_id) VALUES (?, ?)",
-    "getByOrder": "SELECT * FROM orders WHERE orders.code = ?"
+    "getByCode": "SELECT * FROM orders WHERE orders.code = ?"
 }

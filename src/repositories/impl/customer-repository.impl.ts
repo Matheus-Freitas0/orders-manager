@@ -1,7 +1,7 @@
 import { Repository } from '../repository'
 import { Customer } from '../../models/customer'
 import { CustomerRepository } from '../customer.repository'
-import queries from '../../../files/customers-queries.json'
+import queries from '../../../files/queries/customers-queries.json'
 
 export class CustomerRepositoryImpl extends Repository implements CustomerRepository {
 
