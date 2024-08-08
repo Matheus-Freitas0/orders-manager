@@ -77,5 +77,25 @@ export class ProductRepositoryImpl extends Repository implements ProductReposito
     
         await this.datasource.query(queries.updateActive, value, code)
     }
+    
+    async getProductsByCodeIn(codes: string[]): Promise<Product[]> {
+        const products: Product[] = []
+        const data = await this.datasource.query(queries.getByCodeIn, codes)
+        const resultSet = data[0]
+    
+        for (const productModel of resultSet) {
+            products.push({
+                id: productModel['id'],
+                code: productModel['code'],
+                name: productModel['name'],
+                value: productModel['value'],
+                active: productModel['active'],
+                stock: productModel['stock'],
+                categoryId: productModel['category_id']
+            })
+        }
 
+        return products
+    }
+    
 }

@@ -10,4 +10,5 @@ export interface ProductService {
     updateProduct(code: string, product: ProductRequestDTO): Promise<void>
     activateOrDeactivateProduct(code: string, value: boolean): Promise<void>
     getAllCategories(): Promise<Category[]>
+    getProductsByCodeIn(codes: string[]): Promise<ProductResponseDTO[]>
 }

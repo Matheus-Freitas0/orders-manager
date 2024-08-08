@@ -1,21 +1,34 @@
 import { Inject } from '../../config/container.config'
-import { OrderService } from './../order.service';
 import { OrderRequest } from '../../dto/order-request.dto'
+import { Order } from '../../models/order'
+import { OrderItem } from '../../models/order-item'
 import { OrderRepository } from '../../repositories/order.repository'
+import { AppUtils } from '../../utils/app.utils'
+import { CustomerService } from '../customer.service'
+import { OrderService } from '../order.service'
+import { ProductService } from '../product.service'
 
 export class OrderServiceImpl implements OrderService {
    
-    @Inject('orderRepo') 
-    private repository!: OrderRepository 
+    @Inject('orderRepo') private repository!: OrderRepository 
+    @Inject('productSvc') private productService!: ProductService
+    @Inject('customerSvc') private customerService!: CustomerService
 
     async create(orderRequest: OrderRequest): Promise<string> {
-        // todo -> recuperar o customer
-        // todo -> validar se customer existe
-        // todo -> recuperar a lista de produtos
-        // todo -> validar os produtos
-        // todo -> criar a order
-        // todo -> criar uma validacao para ver se os dados da order estão corretos
-        // todo -> salvar os itens na tabela a products_orders
+        const customer = await this.customerService.getByDocument(orderRequest.customerDocument)
+
+        if(!customer) throw new Error('Customer not found')
+        const productsCode = orderRequest.itens.map(item => item.productCode)
+        const products = await this.productService.getProductsByCodeIn(productsCode)
+
+        if(orderRequest.itens.length != products.length) throw new Error('The products found did not match from request')
+        
+        const order: Order = {
+            customerId: customer.id,
+            code: AppUtils.genereteUUIDSimples()
+        }
+        const orderCode = await this.repository.create(order)
+
         return ''
     }
 }

@@ -65,4 +65,22 @@ export class ProductServiceImpl implements ProductService {
         return await this.categoryRepository.getAll()
     }
 
+    async getProductsByCodeIn(codes: string[]): Promise<ProductResponseDTO[]> {
+        const products: Product[] = await this.repository.getProductsByCodeIn(codes)
+        const productsResponse: ProductResponseDTO[] = []
+
+        for (const product of products) {
+            const category: Category = await this.categoryRepository.getById(product.categoryId)
+            const productResponse: ProductResponseDTO = {
+                id: product.id,
+                name: product.name,
+                value: product.value,
+                stock: product.stock,
+                category
+            }
+            productsResponse.push(productResponse)
+        }
+
+        return productsResponse
+    }
 }

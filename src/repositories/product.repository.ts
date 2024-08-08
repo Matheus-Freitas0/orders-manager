@@ -8,5 +8,5 @@ export interface ProductRepository {
     updateProduct (code: string, body: any): Promise<void>
     deleteProduct(code: string): Promise<void>
     activateOrDeactivateProduct(code: string, value: boolean): Promise<void>
-
+    getProductsByCodeIn(codes: string[]): Promise<Product[]>
 }

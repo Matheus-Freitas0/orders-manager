@@ -1,9 +1,12 @@
+import { OrderItem } from "./order-item"
+
 export type Order = {
-    id: number
+    id?: number
     code: string
-    created: string
-    status: 'CANCELLED' | 'AWATING_PAYMENT' | 'FINISHED'
-    statusPayment: 'NOT_PAID' | 'PAID'
-    paymentMethod: 'CASH' | 'CREDIT' | 'PIX' | 'DEBIT'
+    created?: string
+    status?: 'CANCELLED' | 'AWATING_PAYMENT' | 'FINISHED'
+    statusPayment?: 'NOT_PAID' | 'PAID'
+    paymentMethod?: 'CASH' | 'CREDIT' | 'PIX' | 'DEBIT'
     customerId: number    
+    items?: OrderItem[]
 }
