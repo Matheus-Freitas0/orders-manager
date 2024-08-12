@@ -6,10 +6,9 @@ import { OrderItem } from '../../models/order-item'
 
 export class OrderRepositoryImpl extends Repository implements OrderRepository {
 
-    async create(order: Order): Promise<string> {
+    async create(order: Order): Promise<Order> {
         await this.datasource.query(queries.create, order.code , order.customerId)
-        const orderSaved = await this.getByCode(order.code)
-        return orderSaved.code
+        return await this.getByCode(order.code)
     }
 
     async getByCode(code: string): Promise<Order> {
@@ -19,7 +18,7 @@ export class OrderRepositoryImpl extends Repository implements OrderRepository {
     }
 
     async createOrderItem(item: OrderItem): Promise<void> {
-        await this.datasource.query(queries.createOrderItem,  item.productId, item.orderId, item.quantity, item.descountPercent, item.total)
+        await this.datasource.query(queries.createOrderItem,  item.productId, item.orderId, item.quantity, item.discountPercent, item.total)
     }
 
 }
