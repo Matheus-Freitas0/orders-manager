@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start": "npm run build && node dist/src/main",
-    "start:dev": "export APP_ENV=dev && nodemon",
+    "start:dev": "set APP_ENV=dev && nodemon",
     "debug": "tsc && node --inspect-brk dist/src/main.js"
   },
   "repository": {
