@@ -38,20 +38,32 @@ export class OrderValidatorImpl implements OrderValidator {
             const products = await this.productService.getProductsByCodeIn(productsCode)
             
             orderRequest.items.forEach(item => {
-                const product: any = products.find(p => p.code === item.productCode)
+                const product = products.find(p => p.code === item.productCode)
                 
-                if (item.quantity > product.stock) {
+                if (item.quantity > product!.stock) {
                     errors.push({ title: 'stock', message: `Product ${item.productCode} does not have enough stock` })
                 }
             })
         } catch (error) {
             errors.push({ title: 'stock', message: 'Error when trying to verify stock' })
         }
-    
+
+        try{
+            const productsCode = orderRequest.items.map(item => item.productCode)
+            const products = await this.productService.getProductsByCodeIn(productsCode)
+
+            orderRequest.items.forEach(item =>{
+                const product = products.find(p => p.code === item.productCode)
+                if(item.total !== product!.value)
+                    errors.push({ title: 'preco', message: `Product ${item.productCode} has different price`})
+            })
+        
+        } catch (error) {
+            errors.push({ title: 'preco', message: 'Error when trying to verify price'})
+        }
+
         return errors
     }
-    // validar limite de pedidos em aberto por customer
-    // validar desconto
-    // validar preco do produto
-        
 }
+        // validar limite de pedidos em aberto por customer
+        // validar desconto     
