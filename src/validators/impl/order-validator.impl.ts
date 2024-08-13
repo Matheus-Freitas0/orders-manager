@@ -11,33 +11,47 @@ export class OrderValidatorImpl implements OrderValidator {
     @Inject('customerSvc') private customerService!: CustomerService;
     
     async validate(orderRequest: OrderRequest): Promise<OrderErrorDTO[]> {
-        const errors: OrderErrorDTO[] = [];
+        const errors: OrderErrorDTO[] = []
 
-        // Validar customer
         try {
-            const customer = await this.customerService.getByDocument(orderRequest.customerDocument);
+            const customer = await this.customerService.getByDocument(orderRequest.customerDocument)
             if (!customer) {
-                errors.push({ title: 'customerDocument', message: 'Customer not found' });
+                errors.push({ title: 'customerDocument', message: 'Customer not found' })
             }
         } catch (error) {
-            errors.push({ title: 'customerDocument', message: 'error when trying to find customer' });
+            errors.push({ title: 'customerDocument', message: 'error when trying to find customer' })
         }
 
-        // Validar produtos
         try {
-            const productsCode = orderRequest.items.map(item => item.productCode);
-            const products = await this.productService.getProductsByCodeIn(productsCode);
+            const productsCode = orderRequest.items.map(item => item.productCode)
+            const products = await this.productService.getProductsByCodeIn(productsCode)
+            
             if (orderRequest.items.length !== products.length) {
-                errors.push({ title: 'items', message: 'The products found did not match the request' });
+                errors.push({ title: 'items', message: 'The products found did not match the request' })
             }
         } catch (error) {
-            errors.push({ title: 'items', message: 'error when trying to find products' });
+            errors.push({ title: 'items', message: 'Error when trying to find products' })
         }
-
-        return errors;
+    
+        try {
+            const productsCode = orderRequest.items.map(item => item.productCode)
+            const products = await this.productService.getProductsByCodeIn(productsCode)
+            
+            orderRequest.items.forEach(item => {
+                const product: any = products.find(p => p.code === item.productCode)
+                
+                if (item.quantity > product.stock) {
+                    errors.push({ title: 'stock', message: `Product ${item.productCode} does not have enough stock` })
+                }
+            })
+        } catch (error) {
+            errors.push({ title: 'stock', message: 'Error when trying to verify stock' })
+        }
+    
+        return errors
     }
-}
-    // validar stock
     // validar limite de pedidos em aberto por customer
     // validar desconto
     // validar preco do produto
+        
+}
