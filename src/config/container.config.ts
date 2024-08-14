@@ -1,17 +1,18 @@
 import { OrderValidatorClientImpl } from '../clients/impl/order-validator-client.impl'
-import { CategoryRepositoryImpl } from '../repositories/impl/category-repository'
+import { CategoryRepositoryImpl } from '../repositories/impl/category-repository.impl'
 import { CustomerRepositoryImpl } from '../repositories/impl/customer-repository.impl'
 import { OrderRepositoryImpl } from '../repositories/impl/order-repository.impl'
 import { ProductRepositoryImpl } from '../repositories/impl/product-repository.impl'
 import { CustomerServiceImpl } from '../services/impl/customer-service.impl'
 import { OrderServiceImpl } from '../services/impl/order-service.impl'
 import { ProductServiceImpl } from '../services/impl/product-service.impl'
+import { OrderValidatorCustomerImpl } from '../validators/impl/order-validator-customer.impl'
+import { OrderValidatorPriceImpl } from '../validators/impl/order-validator-price.impl'
+import { OrderValidatorProductImpl } from '../validators/impl/order-validator-product.impl'
+import { OrderValidatorStockImpl } from '../validators/impl/order-validator-stock.impl'
 import { MongoAdapter } from './database/mongo-adapter'
 import { MySqlAdapter } from './database/mysql-adapter'
-import { OrderValidatorCustomerImpl } from '../validators/impl/order-validator-customer.impl'
-import { OrderValidatorStockImpl } from '../validators/impl/order-validator-stock.impl'
-import { OrderValidatorProductImpl } from '../validators/impl/order-validator-product.impl'
-import { OrderValidatorPriceImpl } from '../validators/impl/order-validator-price.impl'
+
 export class Container {
 
     static instance: Container    
@@ -35,19 +36,17 @@ export class Container {
         this.dependencies['productSvc'] = new ProductServiceImpl()
         this.dependencies['orderRepo'] = new OrderRepositoryImpl()
         this.dependencies['orderSvc'] = new OrderServiceImpl()
-        this.dependencies['orderValidator'] = new OrderRepositoryImpl()
-        
         this.dependencies['orderValidatorStock'] = new OrderValidatorStockImpl()
         this.dependencies['orderValidatorCustomer'] = new OrderValidatorCustomerImpl()
         this.dependencies['orderValidatorProduct'] = new OrderValidatorProductImpl()
-        this.dependencies['orderValidatorPrice'] = new OrderValidatorPriceImpl()
+        this.dependencies['orderValidatorPrice'] = new OrderValidatorPriceImpl()        
     }
 
     getDependency (name: string) {
         if (!this.dependencies[name]) throw new Error('Dependency not Found')
         return this.dependencies[name]
     }
-    
+
     getDependencies (name: string) {
         const list = []
         for (const key in this.dependencies) {
@@ -57,18 +56,23 @@ export class Container {
         }
         return list
     }
+
 }
 
 export function Inject (name: string) {
 	return function (target: any, propertyKey: string) {
-        const container = Container.getInstance()
-        Object.defineProperty(target, propertyKey, { get: () => container.getDependency(name) })
+        Object.defineProperty(target, propertyKey, { get: () => {
+            const container = Container.getInstance()
+            return container.getDependency(name)
+        } })
 	}
 }
 
 export function InjectArray (name: string) {
 	return function (target: any, propertyKey: string) {
-        const container = Container.getInstance()
-        Object.defineProperty(target, propertyKey, { get: () => container.getDependencies(name) })
+        Object.defineProperty(target, propertyKey, { get: () => {
+            const container = Container.getInstance()
+            return container.getDependencies(name)
+        } })
 	}
 }

@@ -6,7 +6,7 @@ import { OrderRepository } from '../../repositories/order.repository'
 import { AppUtils } from '../../utils/app.utils'
 import { CustomerService } from '../customer.service'
 import { OrderService } from '../order.service'
-import { OrderValidatorStrategy } from '../../strategies/order-validator.strategy'
+import { OrderValidatorStrategy } from '../../validators/order-validator.strategy'
 
 export class OrderServiceImpl implements OrderService {
 
@@ -19,7 +19,7 @@ export class OrderServiceImpl implements OrderService {
     }
 
     async create(orderRequest: OrderRequest): Promise<OrderResponseDTO> {        
-        const validationErrors = await this.orderValidatorStrategy.execute(orderRequest)
+        const validationErrors = await this.orderValidatorStrategy.execute(orderRequest, {})
 
         if (!!validationErrors && !!validationErrors.length) {
             throw new Error(JSON.stringify(validationErrors))

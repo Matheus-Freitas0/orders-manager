@@ -1,7 +1,6 @@
 import { Request, Response } from 'express'
 import { Inject } from '../config/container.config'
 import { OrderService } from '../services/order.service'
-import { error } from 'console'
 
 export class OrderController {
 
@@ -13,12 +12,16 @@ export class OrderController {
     }
 
     async create(req: Request, res: Response) {
-        try{
-        const orderCode = await this.service.create(req.body)
-        res.status(201).json({ orderCode })
-        }
-        catch (error: any) {
-            const errors = JSON.parse(error.message)
+        try {
+            const orderCode = await this.service.create(req.body)
+            res.status(201).json({ orderCode })
+        } catch (error: any) {     
+            let errors
+            try {
+                errors = JSON.parse(error.message)
+            } catch (parseError) {
+                errors = { message: error.message }
+            }
             res.status(400).json(errors)
         }
     }

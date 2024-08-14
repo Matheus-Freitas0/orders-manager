@@ -10,6 +10,6 @@ export class RoutesRegistryConfig{
     register(){
         this.app.use('/api/products', productRouter)
         this.app.use('/api/customers', customerRouter)
-        this.app.use('/api/order', orderRouter)
+        this.app.use('/api/orders', orderRouter)
     }
 }

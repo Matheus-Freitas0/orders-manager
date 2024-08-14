@@ -8,15 +8,13 @@ export class OrderValidatorCustomerImpl implements OrderValidator {
     
     @Inject('customerSvc') private customerService!: CustomerService
 
-    async validate(orderRequest: OrderRequest): Promise<OrderErrorDTO[]> {
+    async validate(orderRequest: OrderRequest, orderMetadata?: { [name: string]: any }): Promise<OrderErrorDTO[]> {
     const errors: OrderErrorDTO[] = []
         try {
-            const customer = await this.customerService.getByDocument(orderRequest.customerDocument)
-            if (!customer) {
-                errors.push({ title: 'customerDocument', message: 'Customer not found' })
-            }
+            orderMetadata!['customerDocument']
+            
         }   catch (error: any) {
-            errors.push({ title: 'customerDocument', message: error.messa })
+            errors.push({ title: 'customerDocument', message: error.message })
         }   
     return errors
     

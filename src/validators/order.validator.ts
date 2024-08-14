@@ -3,6 +3,5 @@ import { OrderRequest } from '../dto/order-request.dto'
 
 export interface OrderValidator {
 
-    validate(orderRequest: OrderRequest): Promise<OrderErrorDTO[]>
-
+    validate(orderRequest: OrderRequest, orderMetadata?: { [name: string]: any }): Promise<OrderErrorDTO[]>
 }
