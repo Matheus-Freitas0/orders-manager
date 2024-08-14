@@ -1,3 +1,3 @@
 export type DefaultErrorResponse = {
-    message: string;
+    message: string
 }

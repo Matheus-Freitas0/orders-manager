@@ -20,7 +20,7 @@ export class ExpressServerConfig{
 
     routesRegistry(): ExpressServerConfig{   
         this.app.use(function(req,res, next){
-            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Origin", "*")
             res.header("Access-Control-Allow-Headers", "*")
             next()
         })
@@ -34,7 +34,7 @@ export class ExpressServerConfig{
         this.app.listen(environment.SERVER_PORT, () => {
             console.log(`server is connected on port: ${environment.SERVER_PORT}`)
             console.log(`application environment: ${process.env.APP_ENV}`)
-            console.log(`database host: ${environment.DB_HOST}`);                        
+            console.log(`database host: ${environment.DB_HOST}`)                      
         })
     }
 

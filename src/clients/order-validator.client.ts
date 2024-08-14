@@ -1,4 +1,4 @@
-import { DocumentValidationResponse } from "./response/document-validator.response";
+import { DocumentValidationResponse } from "./response/document-validator.response"
 
 export interface OrderValidatorClient{
     

@@ -2,7 +2,7 @@ export class firstTest
 {
 constructor()
     {
-        console.log("firstTest");
+        console.log("firstTest")
     }
 }
 

@@ -1,5 +1,5 @@
-import devEnvironment from "./dev.environments";
-import prdEnvironment from "./prd.environments";
+import devEnvironment from "./dev.environments"
+import prdEnvironment from "./prd.environments"
 
 export default (() => {
     const env = process.env.APP_ENV

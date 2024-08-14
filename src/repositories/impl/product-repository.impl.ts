@@ -1,9 +1,8 @@
-import { Repository } from '../repository';
-import { ProductRepository } from './../product.repository';
+import { Repository } from '../repository'
+import { ProductRepository } from './../product.repository'
 import queries from '../../../files/queries/products-queries.json'
-import { Product } from '../../models/product';
-import { randomUUID } from 'crypto';
-import { AppUtils } from '../../utils/app.utils';
+import { Product } from '../../models/product'
+import { AppUtils } from '../../utils/app.utils'
 
 export class ProductRepositoryImpl extends Repository implements ProductRepository {
 

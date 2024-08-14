@@ -1,4 +1,4 @@
-import { Customer } from './../../models/customer';
+import { Customer } from './../../models/customer'
 import { OrderValidatorClient } from '../../clients/order-validator.client'
 import { Inject } from '../../config/container.config'
 import { CustomerRepository } from '../../repositories/customer.repository'
