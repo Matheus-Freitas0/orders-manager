@@ -51,5 +51,7 @@ export class OrderServiceImpl implements OrderService {
             code: orderSaved.code
         }
     }
-
+    async updateOrder(code: string, order: Order): Promise<void> {
+        await this.repository.updateOrder(code, order)
+    }
 }

@@ -26,4 +26,11 @@ export class OrderRepositoryImpl extends Repository implements OrderRepository {
             await this.createOrderItem(item)
         }
     }
+    async updateOrder(code: string, item: Order): Promise<void> {
+        const order = await this.getByCode(code)
+        if(!order){
+            throw new Error(`Order with code: ${code} not found`)
+        }
+        await this.datasource.query(queries.updateOrder, item.status, item.status_payment, item.payment_method , code)
+    }
 }

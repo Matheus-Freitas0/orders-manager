@@ -6,5 +6,5 @@ const router: Router = express.Router()
 const controller = new OrderController()
 
 router.post('/', controller.create)
-
+router.put('/:code', controller.updateOrder)
 export default router

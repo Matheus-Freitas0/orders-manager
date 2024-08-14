@@ -5,8 +5,8 @@ export type Order = {
     code: string
     created?: string
     status?: 'CANCELLED' | 'AWATING_PAYMENT' | 'FINISHED'
-    statusPayment?: 'NOT_PAID' | 'PAID'
-    paymentMethod?: 'CASH' | 'CREDIT' | 'PIX' | 'DEBIT'
+    status_payment?: 'NOT_PAID' | 'PAID'
+    payment_method?: 'CASH' | 'CREDIT' | 'PIX' | 'DEBIT'
     customerId: number    
     items?: OrderItem[]
 }
