@@ -11,6 +11,7 @@ export class OrderController {
     constructor () {
         this.create = this.create.bind(this)
         this.getByCode = this.getByCode.bind(this)
+        this.updateOrder = this.updateOrder.bind(this)
     }
 
     async create(req: Request, res: Response) {

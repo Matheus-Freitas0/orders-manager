@@ -17,6 +17,14 @@ export class OrderServiceImpl implements OrderService {
     constructor () {
         this.orderValidatorStrategy = new OrderValidatorStrategy()
     }
+    
+    async getByCode(code: string): Promise<Order> {
+        return await this.repository.getByCode(code)
+    }
+
+    async updateOrder(code: string, order: Order): Promise<void> {
+        await this.repository.updateOrder(code, order)
+    }
 
     async create(orderRequest: OrderRequest): Promise<OrderResponseDTO> {        
         const customer = await this.customerService.getByDocument(orderRequest.customerDocument)
@@ -51,11 +59,5 @@ export class OrderServiceImpl implements OrderService {
         }
     }
 
-    async getByCode(code: string): Promise<Order> {
-        return await this.repository.getByCode(code)
-    }
-
-    async updateOrder(code: string, order: Order): Promise<void> {
-        await this.repository.updateOrder(code, order)
-    }
+    
 }

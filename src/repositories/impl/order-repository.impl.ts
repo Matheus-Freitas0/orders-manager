@@ -31,7 +31,8 @@ export class OrderRepositoryImpl extends Repository implements OrderRepository {
             customerId: resultSet[0]['customer'],
             created: resultSet[0]['created'],
             status: resultSet[0]['status'],
-            statusPayment: resultSet[0]['status_payment'],
+            status_payment: resultSet[0]['status_payment'],
+            payment_method: resultSet[0]['payment_method'],
             total: resultSet.reduce((a, c) => a + parseFloat(c['total']), 0),
             items
         }
@@ -53,6 +54,6 @@ export class OrderRepositoryImpl extends Repository implements OrderRepository {
         if(!order){
             throw new Error(`Order with code: ${code} not found`)
         }
-        await this.datasource.query(queries.updateOrder, item.status, item.statusPayment, item.paymentMethod , code)
+        await this.datasource.query(queries.updateOrder, item.status, item.status_payment, item.payment_method , code)
     }
 }

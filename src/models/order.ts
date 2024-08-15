@@ -7,8 +7,8 @@ export type Order = {
     customerDocument?: string
     created?: string
     status?: 'CANCELLED' | 'AWATING_PAYMENT' | 'FINISHED'
-    statusPayment?: 'NOT_PAID' | 'PAID'
-    paymentMethod?: 'CASH' | 'CREDIT' | 'PIX' | 'DEBIT'
+    status_payment?: 'NOT_PAID' | 'PAID'
+    payment_method?: 'CASH' | 'CREDIT' | 'PIX' | 'DEBIT'
     items?: OrderItem[]
     total?: number
 }
