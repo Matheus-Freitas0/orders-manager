@@ -4,13 +4,17 @@ import { OrderValidator } from '../order.validator'
 
 export class OrderValidatorCustomerImpl implements OrderValidator {
     
-async validate(orderRequest: OrderRequest, orderMetadata?: { [name: string]: any }): Promise<OrderErrorDTO[]> {
+async validate(orderRequest: OrderRequest, orderMetadata: { [name: string]: any }): Promise<OrderErrorDTO[]> {
     const errors: OrderErrorDTO[] = []
         try {
-            orderMetadata!['customerDocument']
-            
-        }   catch (error: any) {
-            errors.push({ title: 'customerDocument', message: error.message })
+            const customer = orderMetadata['customer']
+
+        if (!customer) {
+            errors.push({ title: 'customerDocument', message: 'customer not found' })
+        }
+        
+        }catch (error: any) {
+            errors.push({ title: 'customer', message: error.message })
         }   
     return errors
     

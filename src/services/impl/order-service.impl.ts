@@ -3,10 +3,10 @@ import { OrderRequest } from '../../dto/order-request.dto'
 import { OrderResponseDTO } from '../../dto/order-response.dto'
 import { Order } from '../../models/order'
 import { OrderRepository } from '../../repositories/order.repository'
+import { OrderValidatorStrategy } from '../../validators/order-validator.strategy'
 import { AppUtils } from '../../utils/app.utils'
 import { CustomerService } from '../customer.service'
 import { OrderService } from '../order.service'
-import { OrderValidatorStrategy } from '../../validators/order-validator.strategy'
 
 export class OrderServiceImpl implements OrderService {
 
@@ -19,13 +19,12 @@ export class OrderServiceImpl implements OrderService {
     }
 
     async create(orderRequest: OrderRequest): Promise<OrderResponseDTO> {        
-        const validationErrors = await this.orderValidatorStrategy.execute(orderRequest, {})
+        const customer = await this.customerService.getByDocument(orderRequest.customerDocument)
+        const validationErrors = await this.orderValidatorStrategy.execute(orderRequest, { customer })
 
         if (!!validationErrors && !!validationErrors.length) {
             throw new Error(JSON.stringify(validationErrors))
         }
-
-        const customer = await this.customerService.getByDocument(orderRequest.customerDocument)
                     
         const order: Order = {
             customerId: customer.id,
@@ -51,6 +50,11 @@ export class OrderServiceImpl implements OrderService {
             code: orderSaved.code
         }
     }
+
+    async getByCode(code: string): Promise<Order> {
+        return await this.repository.getByCode(code)
+    }
+
     async updateOrder(code: string, order: Order): Promise<void> {
         await this.repository.updateOrder(code, order)
     }

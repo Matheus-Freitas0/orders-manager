@@ -7,4 +7,6 @@ const controller = new OrderController()
 
 router.post('/', controller.create)
 router.put('/:code', controller.updateOrder)
+router.get('/:code', controller.getByCode)
+
 export default router
