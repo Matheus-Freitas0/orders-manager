@@ -23,6 +23,10 @@ export class OrderServiceImpl implements OrderService {
     }
 
     async updateOrder(code: string, order: Order): Promise<void> {
+        const orderCode = await this.getByCode(code)
+        if(!orderCode){
+            throw new Error(`Order with code: ${code} not found`)
+        }
         await this.repository.updateOrder(code, order)
     }
 
