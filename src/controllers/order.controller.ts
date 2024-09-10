@@ -12,6 +12,7 @@ export class OrderController {
         this.create = this.create.bind(this)
         this.getByCode = this.getByCode.bind(this)
         this.updateOrder = this.updateOrder.bind(this)
+        this.getAll = this.getAll.bind(this)
     }
 
     async create(req: Request, res: Response) {
@@ -47,5 +48,12 @@ export class OrderController {
         } catch (error: any) {
             return res.status(400).json({ message: error.message})
         }
+    }
+
+    async getAll(req: Request, res: Response) {
+        const pageSize = req.query.pageSize ? parseInt(req.query.pageSize as string) : 10
+        const pageNumber = req.query.pageNumber ? parseInt(req.query.pageNumber as string) : 1
+        const orders = await this.service.getAll(pageSize, pageNumber)
+        res.status(200).json(orders)
     }
 }
