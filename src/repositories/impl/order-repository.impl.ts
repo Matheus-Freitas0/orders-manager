@@ -49,7 +49,16 @@ export class OrderRepositoryImpl extends Repository implements OrderRepository {
             await this.createOrderItem(item)
         }
     }
+    
     async updateOrder(code: string, item: Order): Promise<void> {
         await this.datasource.query(queries.updateOrder, item.status, item.status_payment, item.payment_method , code)
+    }
+
+    async getAll(pageSize: number, pageNumber: number): Promise<Order[]> {
+        const offset = (pageNumber - 1) * pageSize
+        const data = await this.datasource.query(queries.getAll, pageSize, offset)
+        const resultSet = data[0]
+        return resultSet
+
     }
 }
