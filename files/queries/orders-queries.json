@@ -2,5 +2,6 @@
     "create": "INSERT INTO orders (code, customer_id) VALUES (?, ?)",
     "getByCodeFull": "SELECT o.id AS order_id, o.code AS order_code, o.created, o.status, o.payment_method, o.status_payment, o.customer_id AS customer, p.code AS product_code, p.name AS product, po.total AS value, po.quantity, po.discount_percent, po.product_id, (po.total * po.quantity) AS total FROM orders o INNER JOIN products_orders po ON (o.id = po.order_id) INNER JOIN products p ON (po.product_id = p.id) WHERE o.code = ?",
     "createOrderItem": "INSERT INTO products_orders (product_id, order_id, quantity, discount_percent, total) VALUES (?, ?, ?, ?, ?)",
-    "updateOrder": "UPDATE orders SET status = ?, status_payment = ?, payment_method = ? WHERE code = ?"
+    "updateOrder": "UPDATE orders SET status = ?, status_payment = ?, payment_method = ? WHERE code = ?",
+    "getAll": "SELECT * FROM orders LIMIT ? OFFSET ?"
 }
