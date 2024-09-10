@@ -63,5 +63,8 @@ export class OrderServiceImpl implements OrderService {
         }
     }
 
-    
+    async getAll(pageSize: number, pageNumber: number): Promise<any[]> {
+        const orders = await this.repository.getAll(pageSize, pageNumber)
+        return orders
+    }
 }

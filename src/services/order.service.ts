@@ -7,4 +7,5 @@ export interface OrderService {
     create(orderRequest: OrderRequest): Promise<OrderResponseDTO>
     getByCode(code: string): Promise<Order>
     updateOrder(code: string, order: Order): Promise<void>
+    getAll(pageSize: number, pageNumber: number): Promise<any[]>
 }
