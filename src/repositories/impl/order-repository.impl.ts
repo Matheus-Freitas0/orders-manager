@@ -17,7 +17,13 @@ export class OrderRepositoryImpl extends Repository implements OrderRepository {
 
         const items: OrderItem[] = this.itemConverter(resultSet)
 
-        const order: Order = {
+        const order: Order = this.orderConverter(resultSet, items)
+
+        return order    
+    }
+
+    private orderConverter(resultSet: any[], items: OrderItem[]): Order {
+        return {
             id: resultSet[0]['order_id'],
             code: resultSet[0]['order_code'],
             customerId: resultSet[0]['customer'],
@@ -28,8 +34,6 @@ export class OrderRepositoryImpl extends Repository implements OrderRepository {
             total: resultSet.reduce((a, c) => a + parseFloat(c['total']), 0),
             items
         }
-
-        return order    
     }
 
     private itemConverter(resultSet: any[]): OrderItem[] {
@@ -61,29 +65,26 @@ export class OrderRepositoryImpl extends Repository implements OrderRepository {
     async getAll(pageSize: number, pageNumber: number): Promise<Order[]> {
         const offset = (pageNumber - 1) * pageSize
         const data = await this.datasource.query(queries.getAll, pageSize, offset)
-        const resultSet = data[0] as any[] 
-        
-        const items: OrderItem[] = this.itemConverter(resultSet)
-        const orderIds = items.map(it => it.orderId)
-        const setOrderIds = new Set(orderIds)
-        const orders: Order[] = []
+        const resultSet = data[0] as any[]
 
+        const items: OrderItem[] = this.itemConverter(resultSet)
+       
+        const orderIds = items.map(element => element.orderId)
+
+        const setOrderIds = new Set(orderIds)
+
+        const orders: Order[] = []
+        
         setOrderIds.forEach(orderId => {
-            const itemsById = items.filter(item => item.orderId === orderId) 
-            const resultSetFiltered = []
-            const order: Order = {
-                id: resultSet[0]['order_id'],
-                code: resultSet[0]['order_code'],
-                customerId: resultSet[0]['customer'],
-                created: resultSet[0]['created'],
-                status: resultSet[0]['status'],
-                status_payment: resultSet[0]['status_payment'],
-                payment_method: resultSet[0]['payment_method'],
-                total: resultSet.reduce((a, c) => a + parseFloat(c['total']), 0),
-                items: itemsById
-            } 
+            const itemById = items.filter(item => item.orderId === orderId)
+
+            const resultSetFiltered = resultSet.filter(rs => rs['order_id'] === orderId)
+            
+            const order: Order = this.orderConverter(resultSetFiltered, itemById)
+            
             orders.push(order)
         })
+
         return orders
     }
 }
