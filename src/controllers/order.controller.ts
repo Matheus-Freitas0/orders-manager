@@ -64,6 +64,8 @@ export class OrderController {
       const createdEnd =
         (req.query.createdEnd as string) || DateUtils.getCurrentDate();
 
+    // jogar estas validações para o strategy 
+    // validar data e formato de data
       const validStatus = ['CANCELLED', 'AWATING_PAYMENT', 'FINISHED'];
 
       if (orderStatus && !validStatus.includes(orderStatus)) {
