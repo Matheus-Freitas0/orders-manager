@@ -64,6 +64,33 @@ export class OrderController {
       const createdEnd =
         (req.query.createdEnd as string) || DateUtils.getCurrentDate();
 
+      const validStatus = ['CANCELLED', 'AWATING_PAYMENT', 'FINISHED'];
+
+      if (orderStatus && !validStatus.includes(orderStatus)) {
+        res
+          .status(400)
+          .json({
+            message: `Invalid order status. Valid statuses are: ${validStatus.join(", ")}`});
+        return;
+      }
+
+      if (pageSize <= 0 || pageNumber <= 0) {
+        res.status(400).json({
+          message: "Page size and page number must be positive integers",
+        });
+        return;
+      }
+
+      const maxPageSize = 100;
+      const maxPageNumber = 1000;
+
+      if (pageSize > maxPageSize || pageNumber > maxPageNumber) {
+        res.status(400).json({
+          message: `Page size must be less than ${maxPageSize} and page number must be less than ${maxPageNumber}`,
+        });
+        return;
+      }
+
       const orders = await this.service.getAll(
         pageSize,
         pageNumber,
