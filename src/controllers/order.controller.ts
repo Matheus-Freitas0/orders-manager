@@ -51,7 +51,7 @@ export class OrderController {
     }
 
     async getAll(req: Request, res: Response) {
-        try{
+    try{
         const pageSize = req.query.pageSize ? parseInt(req.query.pageSize as string) : 10
         
         const pageNumber = req.query.pageNumber ? parseInt(req.query.pageNumber as string) : 1
