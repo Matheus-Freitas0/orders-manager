@@ -7,6 +7,7 @@ import { OrderValidatorStrategy } from '../../validators/order-validator.strateg
 import { AppUtils } from '../../utils/app.utils'
 import { CustomerService } from '../customer.service'
 import { OrderService } from '../order.service'
+import { Paged } from '../../dto/paged'
 
 export class OrderServiceImpl implements OrderService {
 
@@ -63,8 +64,13 @@ export class OrderServiceImpl implements OrderService {
         }
     }
 
-    async getAll(pageSize: number, pageNumber: number): Promise<any[]> {
-        const orders = await this.repository.getAll(pageSize, pageNumber)
-        return orders
+    async getAll(pageSize: number, pageNumber: number, orderStatus: string, initDate: string, endDate: string): Promise<Paged<Order>> {
+        const totalItems = await this.repository.count(orderStatus, initDate, endDate)
+        
+        const orders = await this.repository.getAll(pageSize, pageNumber, orderStatus, initDate, endDate)
+        
+        const ordersPaged = new Paged<Order>(pageNumber, orders, totalItems)
+        
+        return ordersPaged
     }
 }
