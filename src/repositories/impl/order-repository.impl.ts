@@ -62,9 +62,13 @@ export class OrderRepositoryImpl extends Repository implements OrderRepository {
         await this.datasource.query(queries.updateOrder, item.status, item.status_payment, item.payment_method , code)
     }
 
-    async getAll(pageSize: number, pageNumber: number): Promise<Order[]> {
+    async getAll(pageSize: number, pageNumber: number, orderStatus: string, initDate: string, endDate: string): Promise<Order[]> {
         const offset = (pageNumber - 1) * pageSize
-        const data = await this.datasource.query(queries.getAll, pageSize, offset)
+        
+        const orderStatusF = `%${orderStatus}%`
+        
+        const data = await this.datasource.query(queries.getAll, orderStatusF, initDate, endDate, pageSize, offset)
+        
         const resultSet = data[0] as any[]
 
         const items: OrderItem[] = this.itemConverter(resultSet)
@@ -86,5 +90,12 @@ export class OrderRepositoryImpl extends Repository implements OrderRepository {
         })
 
         return orders
+    }
+
+    async count(orderStatus: string, initDate: string, endDate: string): Promise<number> {
+        
+        const data = await this.datasource.query(queries.count, `%${orderStatus}%`, initDate, endDate)
+        return data[0][0]['total'] as number
+    
     }
 }
