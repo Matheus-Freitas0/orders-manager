@@ -66,6 +66,15 @@ export class OrderController {
 
     // jogar estas validações para o strategy 
     // validar data e formato de data
+    const isValidFormat = (date: string): boolean => {
+      const dateRegex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/;
+      return dateRegex.test(date);
+    };
+    
+    if (!isValidFormat(createdInit) || !isValidFormat(createdEnd)) {
+      res.status(400).json({ message: 'Date must be in the format YYYY-MM-DD HH:MM:SS' });
+      return;
+    }
       const validStatus = ['CANCELLED', 'AWATING_PAYMENT', 'FINISHED'];
 
       if (orderStatus && !validStatus.includes(orderStatus)) {
