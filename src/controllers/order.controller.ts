@@ -66,6 +66,11 @@ export class OrderController {
 
     // jogar estas validações para o strategy 
     // validar data e formato de data
+    if (new Date(createdEnd) < new Date(createdInit)) {
+      res.status(400).json({ message: 'End date cannot be before start date' });
+      return;
+    }
+
     const isValidFormat = (date: string): boolean => {
       const dateRegex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/;
       return dateRegex.test(date);
