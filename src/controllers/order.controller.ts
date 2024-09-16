@@ -12,6 +12,7 @@ export class OrderController {
     this.getByCode = this.getByCode.bind(this);
     this.updateOrder = this.updateOrder.bind(this);
     this.getAll = this.getAll.bind(this);
+    this.pay = this.pay.bind(this)
   }
 
   async create(req: Request, res: Response) {
@@ -121,5 +122,11 @@ export class OrderController {
         .status(500)
         .json({ message: "An error occurred while fetching orders" });
     }
+  }
+
+  pay(req:Request, res:Response){
+    const orderCode = req.params.code
+    console.log('codigo de pedido', orderCode);
+    res.json('pagar')
   }
 }
