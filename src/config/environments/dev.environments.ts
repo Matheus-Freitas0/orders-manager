@@ -9,6 +9,7 @@ export default (() => {
         DB_PASSWORD: process.env.DB_PASSWORD || 'root',
         DB_NAME: 'db_ecommerce',
         DB_HOST: process.env.DB_HOST || 'localhost',
-        DB_PORT: process.env.DB_PORT || 3306    
+        DB_PORT: process.env.DB_PORT || 3306,
+        ORDER_PAYMENT_QUEUE: 'orderPaymentQueueDEV'
     }
 }) ()
