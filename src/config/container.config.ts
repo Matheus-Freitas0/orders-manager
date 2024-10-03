@@ -12,7 +12,8 @@ import { OrderValidatorProductImpl } from '../validators/impl/order-validator-pr
 import { OrderValidatorStockImpl } from '../validators/impl/order-validator-stock.impl'
 import { MongoAdapter } from './database/mongo-adapter'
 import { MySqlAdapter } from './database/mysql-adapter'
-
+import { RabbitMQAdapter } from './messaging/rabbitmq.adapter'
+ 
 export class Container {
 
     static instance: Container    
@@ -28,6 +29,7 @@ export class Container {
     register () {
         this.dependencies['mysql'] = new MySqlAdapter()
         this.dependencies['mongo'] = new MongoAdapter()
+        this.dependencies['rabbit-mq'] = new RabbitMQAdapter()
         this.dependencies['customerSvc'] = new CustomerServiceImpl()
         this.dependencies['customerRepo'] = new CustomerRepositoryImpl()
         this.dependencies['orderValCli'] = new OrderValidatorClientImpl()
