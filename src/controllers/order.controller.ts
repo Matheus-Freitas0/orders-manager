@@ -12,7 +12,7 @@ export class OrderController {
     this.getByCode = this.getByCode.bind(this);
     this.updateOrder = this.updateOrder.bind(this);
     this.getAll = this.getAll.bind(this);
-    this.pay = this.pay.bind(this)
+    this.pay = this.pay.bind(this);
   }
 
   async create(req: Request, res: Response) {
@@ -65,29 +65,33 @@ export class OrderController {
       const createdEnd =
         (req.query.createdEnd as string) || DateUtils.getCurrentDate();
 
-    // jogar estas validações para o strategy 
-    // validar data e formato de data
-    if (new Date(createdEnd) < new Date(createdInit)) {
-      res.status(400).json({ message: 'End date cannot be before start date' });
-      return;
-    }
-
-    const isValidFormat = (date: string): boolean => {
-      const dateRegex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/;
-      return dateRegex.test(date);
-    };
-    
-    if (!isValidFormat(createdInit) || !isValidFormat(createdEnd)) {
-      res.status(400).json({ message: 'Date must be in the format YYYY-MM-DD HH:MM:SS' });
-      return;
-    }
-      const validStatus = ['CANCELLED', 'AWATING_PAYMENT', 'FINISHED'];
-
-      if (orderStatus && !validStatus.includes(orderStatus)) {
+      // jogar estas validações para o strategy
+      if (new Date(createdEnd) < new Date(createdInit)) {
         res
           .status(400)
-          .json({
-            message: `Invalid order status. Valid statuses are: ${validStatus.join(", ")}`});
+          .json({ message: "End date cannot be before start date" });
+        return;
+      }
+
+      const isValidFormat = (date: string): boolean => {
+        const dateRegex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/;
+        return dateRegex.test(date);
+      };
+
+      if (!isValidFormat(createdInit) || !isValidFormat(createdEnd)) {
+        res
+          .status(400)
+          .json({ message: "Date must be in the format YYYY-MM-DD HH:MM:SS" });
+        return;
+      }
+      const validStatus = ["CANCELLED", "AWATING_PAYMENT", "FINISHED"];
+
+      if (orderStatus && !validStatus.includes(orderStatus)) {
+        res.status(400).json({
+          message: `Invalid order status. Valid statuses are: ${validStatus.join(
+            ", "
+          )}`,
+        });
         return;
       }
 
@@ -124,9 +128,14 @@ export class OrderController {
     }
   }
 
-  pay(req:Request, res:Response){
-    const orderCode = req.params.code
-    console.log('codigo de pedido', orderCode);
-    res.json('pagar')
+  async pay(req: Request, res: Response) {
+    const orderPay = req.body;
+
+    try {
+      await this.service.pay(orderPay);
+    } catch (error: any) {
+      const errors = JSON.parse(error.message);
+      res.status(400).json(errors);
+    }
   }
 }
