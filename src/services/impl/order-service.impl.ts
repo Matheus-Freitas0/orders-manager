@@ -16,8 +16,9 @@ export class OrderServiceImpl implements OrderService {
 
     @Inject('orderRepo') private repository!: OrderRepository
     @Inject('customerSvc') private customerService!: CustomerService
-    private orderValidatorStrategy!: OrderValidatorStrategy
     @Inject('messagePublisher') private messagePublisher!: MessagePublisher
+
+    private orderValidatorStrategy!: OrderValidatorStrategy
 
     constructor () {
         this.orderValidatorStrategy = new OrderValidatorStrategy()
@@ -85,7 +86,7 @@ export class OrderServiceImpl implements OrderService {
         }
 
         if (order.status_payment === 'NOT_PAID') {
-            await this.messagePublisher.publish(orderPayRequest, environment.ORDER_PAYMENT_QUEUE)
+           await this.messagePublisher.publish(orderPayRequest, environment.orderPaymentQueue.queue, environment.orderPaymentQueue.options)
         }
     }
 }
