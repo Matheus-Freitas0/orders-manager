@@ -66,6 +66,7 @@ export class OrderController {
         (req.query.createdEnd as string) || DateUtils.getCurrentDate();
 
       // jogar estas validações para o strategy
+      
       if (new Date(createdEnd) < new Date(createdInit)) {
         res
           .status(400)

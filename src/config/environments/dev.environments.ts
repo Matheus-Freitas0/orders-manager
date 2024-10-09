@@ -10,6 +10,16 @@ export default (() => {
         DB_NAME: 'db_ecommerce',
         DB_HOST: process.env.DB_HOST || 'localhost',
         DB_PORT: process.env.DB_PORT || 3306,
-        ORDER_PAYMENT_QUEUE: 'orderPaymentQueueDEV'
+        RABBITMQ_USER: process.env.RABBITMQ_USER || 'admin',
+        RABBITMQ_PASSWORD: process.env.RABBITMQ_PASSWORD || 'admin',
+        RABBITMQ_PORT: 5672,
+        RABBITMQ_HOST: 'localhost',
+        orderPaymentQueue: {
+            queue: 'order_status_queue',
+            options: {
+                routingKey: 'order_status_key',
+                exchange: 'order_status_exchange'
+            }
+        },
     }
 }) ()
