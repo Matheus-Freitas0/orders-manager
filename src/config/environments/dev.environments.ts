@@ -14,6 +14,7 @@ export default (() => {
         RABBITMQ_PASSWORD: process.env.RABBITMQ_PASSWORD || 'admin',
         RABBITMQ_PORT: 5672,
         RABBITMQ_HOST: 'localhost',
+        ORDER_PAYMENT_PARTNER_ID: process.env.ORDER_PAYMENT_PARTNER_ID,
         orderPaymentQueue: {
             queue: 'order_status_queue',
             options: {

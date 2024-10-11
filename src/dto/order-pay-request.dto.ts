@@ -1,3 +1,8 @@
 export type OrderPayRequest = {
-    code: string
+    orderCode: string
+    cardNumber: string
+    method: 'PIX' | 'DEBIT' | 'CREDIT' | 'CASH'
+    partnerId: string
+    amount: number
+    clientDocument: string
 }
