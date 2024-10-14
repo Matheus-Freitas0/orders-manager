@@ -61,6 +61,9 @@ export class RabbitMQAdapter implements MessagePublisher {
     
     async publish (message: any, queue: string, options: any): Promise<boolean> {
         try {
+
+            // todo (isolar o codigo que: cria a fila, cria a exchange e faz o bind delas em uma classe separada que deve ser invocada na inicializacao)
+            
             await this.createQueue(queue)
             await this.createExchange(options.exchange, options.type || 'direct')
             await this.bindQueueToExchange(queue, options.exchange, options.routingKey)
