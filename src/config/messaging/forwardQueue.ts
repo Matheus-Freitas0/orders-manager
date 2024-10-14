@@ -2,8 +2,7 @@ import { MessagePublisher } from './message-publisher'
 import client, { Connection, Channel, Options } from 'amqplib'
 import environment from '../environments/environments'
 
-export class RabbitMQAdapter implements MessagePublisher {
-
+export class ForwardQueue {
     channel!: Channel
     connection!: Connection
     private isConnected!: boolean
@@ -58,28 +57,4 @@ export class RabbitMQAdapter implements MessagePublisher {
         const success = this.channel.publish(exchange, routingKey, Buffer.from(message), options)
         return success
     }
-    
-    async publish (message: any, queue: string, options: any): Promise<boolean> {
-        try {
-
-            // todo (isolar o codigo que: cria a fila, cria a exchange e faz o bind delas 
-            // em uma classe separada que deve ser invocada na inicializacao)
-            
-            await this.createQueue(queue)
-            await this.createExchange(options.exchange, options.type || 'direct')
-            await this.bindQueueToExchange(queue, options.exchange, options.routingKey)
-            const isMessageSent = await this.publishToExchange(options.exchange, options.routingKey, JSON.stringify(message))
-            return isMessageSent
-
-        } catch (error) {
-            const msg = 'There was an error while trying to send message to queue'
-            console.error(`${msg}: ${queue}`)            
-            console.error(error)
-            throw new Error(msg)
-
-        } finally {
-            await this.close()
-        }
-    }
-
 }
