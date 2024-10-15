@@ -5,13 +5,13 @@ import { RabbitMQAdapter } from './messaging/rabbitmq.adapter'
 
 export class QueueMessagesRegistry {
 
-    @Inject('messagePublisher') 
-    private messagePublisher!: MessagePublisher
+    @Inject('rabbit-mq') 
+    private rabbitMQAdapter!: RabbitMQAdapter
 
     constructor () {}
     
     async register(): Promise<void> {
-        const rabbitAdapter = this.messagePublisher as RabbitMQAdapter
+        const rabbitAdapter = this.rabbitMQAdapter as RabbitMQAdapter
 
         await orderPaymentQueueRegister(rabbitAdapter)
         

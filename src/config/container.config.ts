@@ -30,6 +30,7 @@ export class Container {
         this.dependencies['mysql'] = new MySqlAdapter()
         this.dependencies['mongo'] = new MongoAdapter()
         this.dependencies['rabbit-mq'] = new RabbitMQAdapter()
+
         this.dependencies['customerSvc'] = new CustomerServiceImpl()
         this.dependencies['customerRepo'] = new CustomerRepositoryImpl()
         this.dependencies['orderValCli'] = new OrderValidatorClientImpl()
@@ -38,6 +39,7 @@ export class Container {
         this.dependencies['productSvc'] = new ProductServiceImpl()
         this.dependencies['orderRepo'] = new OrderRepositoryImpl()
         this.dependencies['orderSvc'] = new OrderServiceImpl()
+        
         this.dependencies['orderValidatorStock'] = new OrderValidatorStockImpl()
         this.dependencies['orderValidatorCustomer'] = new OrderValidatorCustomerImpl()
         this.dependencies['orderValidatorProduct'] = new OrderValidatorProductImpl()
