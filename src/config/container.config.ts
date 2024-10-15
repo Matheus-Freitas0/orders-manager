@@ -29,7 +29,7 @@ export class Container {
     register () {
         this.dependencies['mysql'] = new MySqlAdapter()
         this.dependencies['mongo'] = new MongoAdapter()
-        this.dependencies['rabbit-mq'] = new RabbitMQAdapter()
+        this.dependencies['messagePublisher'] = new RabbitMQAdapter()
 
         this.dependencies['customerSvc'] = new CustomerServiceImpl()
         this.dependencies['customerRepo'] = new CustomerRepositoryImpl()
