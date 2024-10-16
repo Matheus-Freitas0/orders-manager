@@ -87,7 +87,13 @@ export class OrderServiceImpl implements OrderService {
 
         if (order.status_payment === 'NOT_PAID') {
             this.completePaymentInstrument(orderPayRequest, order)
-            console.log('PAYLOAD to be sent to RABBITMQ:', orderPayRequest)
+            console.log('PAYLOAD to be sent to RABBITMQ:', orderPayRequest)      
+            
+            const message = orderPayRequest
+            const exchange = environment.orderPaymentQueue.options.exchange
+            const routingKey = environment.orderPaymentQueue.options.routingKey 
+            
+            await this.messagePublisher.publish(message, exchange, routingKey)
         }
         
     }

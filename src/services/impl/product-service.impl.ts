@@ -5,9 +5,11 @@ import { Product } from '../../models/product'
 import { CategoryRepository } from '../../repositories/category.repository'
 import { ProductRepository } from '../../repositories/product.repository'
 import { ProductService } from '../product.service'
+import { Cache } from '../../config/cache/cache'
 
 export class ProductServiceImpl implements ProductService {
-
+    
+    @Inject('cache') cache!: Cache
     @Inject('productRepo') repository!: ProductRepository
     @Inject('categoryRepo') categoryRepository!: CategoryRepository 
 
@@ -28,6 +30,7 @@ export class ProductServiceImpl implements ProductService {
     }
 
     async createProduct(product: Product): Promise<void> {
+        await this.cache.evictCache('categories*')
         await this.repository.createProduct(product)
     }
 
@@ -46,7 +49,14 @@ export class ProductServiceImpl implements ProductService {
     }
     
     async getAllCategories(): Promise<Category[]> {
-        return await this.categoryRepository.getAll()
+        let categories = await this.cache.getCache<Category[]>('categories')
+
+        if (!categories) {
+            categories = await this.categoryRepository.getAll()
+            await this.cache.setCache('categories', categories, 180)
+        }
+
+        return categories
     }
 
     async getProductsByCodeIn(codes: string[]): Promise<ProductResponseDTO[]> {
