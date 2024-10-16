@@ -1,5 +1,5 @@
 export interface MessagePublisher {
 
-    publish (message: any, queue: string, options: any): Promise<boolean>
+    publish (message: any, exchange: string, routingKey: string): Promise<boolean>
 
 }
