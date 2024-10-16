@@ -27,8 +27,12 @@ export class RedisCacheAdapter implements Cache {
         return JSON.parse(cachedValue) as T
     }
 
-    async evictCache(key: string): Promise<void> {
+    async evictCache(...key: string[]): Promise<void> {   
         await this.client.del(key)
     }
 
+    async evictCacheInBatch(pattern: string): Promise<void> {
+        const keys = await this.client.keys(pattern)
+        if (keys.length) await this.evictCache(...keys)
+    }
 }
