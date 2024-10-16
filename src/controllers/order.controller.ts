@@ -96,10 +96,13 @@ export class OrderController {
   }
 
   async orderPaymentStatusWebhook(req: Request, res: Response) {
+
     // todo - verificar se o token foi assinado pelo provedor de pagamento
+    
     const authHeader = req.headers.Authorization        
     
     // todo - recupera os dados de pagamento e salva no banco
+    
     const orderPayment = req.body
     
     console.log('####################################');

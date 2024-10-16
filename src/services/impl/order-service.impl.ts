@@ -79,6 +79,9 @@ export class OrderServiceImpl implements OrderService {
         return ordersPaged
     }
     async pay(orderPayRequest: OrderPayRequest): Promise<void> {
+        
+        //todo - fazer try catch para corrigir mensagem de erro
+        
         const order = await this.getByCode(orderPayRequest.orderCode)
 
         if (!order || !order.id) {
