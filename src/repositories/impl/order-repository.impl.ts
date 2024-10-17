@@ -13,16 +13,23 @@ export class OrderRepositoryImpl extends Repository implements OrderRepository {
     }
 
     async getByCode(code: string): Promise<Order> {
-        const data = await this.datasource.query(queries.getByCode, code)
-
-        const resultSet = data[0] as any[]
+        const data = await this.datasource.query(queries.getByCode, code);
         
-        const items: OrderItem[] = this.itemConverter(resultSet)
-
-        const order: Order = this.orderConverter(resultSet, items)
-
-        return order    
-    }
+        if (!data || data.length === 0) {
+          throw new Error('Nenhum pedido encontrado para o código informado.');
+        }
+      
+        const resultSet = data[0] as any[];
+        
+        if (!resultSet || resultSet.length === 0) {
+          throw new Error('Codigo invalido, estrutura vazia');
+        }
+      
+        const items: OrderItem[] = this.itemConverter(resultSet);
+        const order: Order = this.orderConverter(resultSet, items);
+      
+        return order;
+      }
 
     private orderConverter(resultSet: any[], items: OrderItem[]): Order {
         return {

@@ -31,10 +31,21 @@ export class OrderController {
     try {
       const code = req.params.code;
       const order = await this.service.getByCode(code);
+  
+      if (!order) {
+        return res.status(404).json({ message: 'Pedido não encontrado' });
+      }
+  
       res.status(200).json(order);
+
     } catch (error: any) {
-      const errors = JSON.parse(error.message);
-      res.status(400).json(errors);
+      
+      if (typeof error.message === 'string') {
+        res.status(400).json({ message: error.message });
+
+      } else {
+        res.status(400).json(error);
+      }
     }
   }
 
