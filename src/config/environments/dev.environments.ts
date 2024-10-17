@@ -15,7 +15,7 @@ export default (() => {
         RABBITMQ_PORT: 5672,
         RABBITMQ_HOST: process.env.RABBITMQ_HOST || 'localhost',
         ORDER_PAYMENT_PARTNER_ID: process.env.ORDER_PAYMENT_PARTNER_ID,
-        REDIS_HOST: '192.168.15.123',
+        REDIS_HOST: '192.168.15.3',
         REDIS_PORT: 6379,
         REDIS_DEFAULT_EXP: 3600,
         orderPaymentQueue: {

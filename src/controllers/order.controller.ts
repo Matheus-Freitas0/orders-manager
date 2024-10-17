@@ -39,7 +39,6 @@ export class OrderController {
       res.status(200).json(order);
 
     } catch (error: any) {
-    //importante metodo interessante para não devolver vazio
       if (typeof error.message === 'string') {
         res.status(400).json({ message: error.message });
 

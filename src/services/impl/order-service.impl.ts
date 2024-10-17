@@ -99,7 +99,6 @@ export class OrderServiceImpl implements OrderService {
     return ordersPaged;
   }
   async pay(orderPayRequest: OrderPayRequest): Promise<void> {
-    //todo - fazer try catch para corrigir mensagem de erro
 
     const order = await this.getByCode(orderPayRequest.orderCode);
 
@@ -113,9 +112,10 @@ export class OrderServiceImpl implements OrderService {
         const routingKey = environment.orderPaymentQueue.options.routingKey;
 
         await this.messagePublisher.publish(message, exchange, routingKey);
-      }
+    }
     } catch (error) {
-            throw new Error("Não foi possível realizar o pagamento");     
+        throw new Error("Não foi possível realizar o pagamento");     
+        
     }
   }
   completePaymentInstrument(orderPayRequest: OrderPayRequest, order: Order) {

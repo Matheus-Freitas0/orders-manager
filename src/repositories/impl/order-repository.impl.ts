@@ -16,7 +16,7 @@ export class OrderRepositoryImpl extends Repository implements OrderRepository {
         const data = await this.datasource.query(queries.getByCode, code);
         
         if (!data || data.length === 0) {
-          throw new Error('Nenhum pedido encontrado para o código informado.');
+          throw new Error('Nenhum pedido encontrado');
         }
       
         const resultSet = data[0] as any[];
