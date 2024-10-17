@@ -72,7 +72,13 @@ export class ProductServiceImpl implements ProductService {
     }
 
     private async productToProductResponse (product: Product): Promise<ProductResponseDTO> {
-        const category: Category = await this.categoryRepository.getById(product.categoryId)
+        let category = await this.cache.getCache<Category>(`categories:${product.categoryId}`)
+
+        if (!category) {
+            category = await this.categoryRepository.getById(product.categoryId)
+            await this.cache.setCache(`categories:${product.categoryId}`, category, 500)
+        }
+
         return {
             id: product.id,
             code: product.code,
