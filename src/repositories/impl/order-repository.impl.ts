@@ -22,7 +22,7 @@ export class OrderRepositoryImpl extends Repository implements OrderRepository {
         const resultSet = data[0] as any[];
         
         if (!resultSet || resultSet.length === 0) {
-          throw new Error('Codigo invalido, estrutura vazia');
+          throw new Error('Codigo invalido ou vazio');
         }
       
         const items: OrderItem[] = this.itemConverter(resultSet);
