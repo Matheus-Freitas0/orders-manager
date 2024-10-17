@@ -30,7 +30,7 @@ export class ProductServiceImpl implements ProductService {
     }
 
     async createProduct(product: Product): Promise<void> {
-        await this.cache.evictCache('categories*')
+        await this.cache.evictCacheInBatch('categories*')
         await this.repository.createProduct(product)
     }
 
