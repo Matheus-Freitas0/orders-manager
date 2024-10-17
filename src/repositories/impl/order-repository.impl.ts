@@ -3,6 +3,7 @@ import { OrderRepository } from '../order.repository'
 import { Repository } from '../repository'
 import queries from '../../../files/queries/orders-queries.json'
 import { OrderItem } from '../../models/order-item'
+import { error } from 'console'
 
 export class OrderRepositoryImpl extends Repository implements OrderRepository {
 
@@ -12,9 +13,10 @@ export class OrderRepositoryImpl extends Repository implements OrderRepository {
     }
 
     async getByCode(code: string): Promise<Order> {
-        const data = await this.datasource.query(queries.getByCodeFull, code)
-        const resultSet = data[0] as any[]
+        const data = await this.datasource.query(queries.getByCode, code)
 
+        const resultSet = data[0] as any[]
+        
         const items: OrderItem[] = this.itemConverter(resultSet)
 
         const order: Order = this.orderConverter(resultSet, items)
