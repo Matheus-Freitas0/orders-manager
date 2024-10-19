@@ -31,7 +31,9 @@ export class ProductServiceImpl implements ProductService {
 
     async createProduct(product: Product): Promise<void> {
         await this.cache.evictCacheInBatch('categories*')
+        console.log('evict called');
         await this.repository.createProduct(product)
+
     }
 
     async getProductByCode(code: string): Promise<ProductResponseDTO | null> {
@@ -53,7 +55,7 @@ export class ProductServiceImpl implements ProductService {
 
         if (!categories) {
             categories = await this.categoryRepository.getAll()
-            await this.cache.setCache('categories', categories, 180)
+            await this.cache.setCache('categories', categories, 600)
         }
 
         return categories
