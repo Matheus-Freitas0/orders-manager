@@ -33,7 +33,7 @@ describe('AppUtils_Multiply', () => {
 
     test('deve retornar um erro quando for passado qualquer parametro que nao seja um numero', () => {
         expect(() => {
-            AppUtils.sum(true, 10)
+            AppUtils.multiply(true, 10)
         }).toThrow('so pode numeros')
     })
 
@@ -41,7 +41,18 @@ describe('AppUtils_Multiply', () => {
         test('deve calcular a media dos numeros', () => {
             const averageResult = AppUtils.average(1, 2, 3)
             expect(averageResult).toBe(2)
-            })
-            
+        })
+        
+        test('deve retornar um erro quando for passado qualquer parametro que nao seja um numero', () => {
+            expect(() => {
+                AppUtils.average(true, 10)
+            }).toThrow('so pode numeros')
+        })    
+
+        test('deve retornar um erro quando lista for vazia', () => {
+            expect(() => {
+                AppUtils.average()
+            }).toThrow('lista nao pode estar vazia')
+        })    
     })
 })
