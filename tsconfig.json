@@ -13,6 +13,6 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "include": ["src", "pm2.config.js"],
+  "include": ["src", "pm2.config.js", "test/**/*.ts"],
   "exclude": ["node_modules"]
 }
