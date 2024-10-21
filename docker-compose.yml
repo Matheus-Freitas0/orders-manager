@@ -1,0 +1,15 @@
+version: '3'
+
+networks:
+  redelab:
+    ipam:
+      driver: default
+
+services:
+  pm2-node-app:
+    container_name: pm2NodeApp
+    build: .
+    ports:
+      - "4200:4200"
+    networks:
+       redelab:
