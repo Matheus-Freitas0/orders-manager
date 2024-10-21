@@ -19,7 +19,7 @@ describe('AppUtils_Sum', () => {
     })
 })
 
-describe('AppUtils_Sum', () => {
+describe('AppUtils_Multiply', () => {
     test('deve multiplicar os numeros', () => {
         const multiplyResult = AppUtils.multiply(1, 2, 3)
         expect(multiplyResult).toBe(6)
@@ -29,5 +29,11 @@ describe('AppUtils_Sum', () => {
         expect(() => {
             AppUtils.multiply(-1, 10)
         }).toThrow('nao pode negativo')
+    })
+
+    test('deve retornar um erro quando for passado qualquer parametro que nao seja um numero', () => {
+        expect(() => {
+            AppUtils.sum(true, 10)
+        }).toThrow('so pode numeros')
     })
 })
