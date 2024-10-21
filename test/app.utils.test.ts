@@ -1,6 +1,6 @@
 import { AppUtils } from '../src/utils/app.utils'
 
-describe('AppUtils', () => {
+describe('AppUtils_Sum', () => {
     test('deve somar os numeros', () => {
         const sumResult = AppUtils.sum(1, 2, 3)
         expect(sumResult).toBe(6)
@@ -16,5 +16,18 @@ describe('AppUtils', () => {
         expect(() => {
             AppUtils.sum(true, 10)
         }).toThrow('so pode numeros')
+    })
+})
+
+describe('AppUtils_Sum', () => {
+    test('deve multiplicar os numeros', () => {
+        const multiplyResult = AppUtils.multiply(1, 2, 3)
+        expect(multiplyResult).toBe(6)
+    })
+
+    test('deve retornar um erro quando for passado qualquer parametro com numero negativo', () => {
+        expect(() => {
+            AppUtils.multiply(-1, 10)
+        }).toThrow('nao pode negativo')
     })
 })
