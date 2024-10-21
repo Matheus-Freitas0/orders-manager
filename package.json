@@ -8,7 +8,10 @@
     "start": "npm run build && node dist/src/main",
     "start:dev": "set APP_ENV=dev && nodemon",
     "debug": "tsc && node --inspect-brk dist/src/main.js",
-    "start:test": "npm run build && node dist/src/test.js"
+    "start:pm2": "npm run build && pm2 start pm2.config.js",
+    "start:pm2Docker": "npm run build && pm2-docker start pm2.config.js",
+    "test": "export APP_ENV=dev && npm run build && node dist/src/test.js",
+    "jest": "npm run build && jest dist/test"
   },
   "repository": {
     "type": "git",
