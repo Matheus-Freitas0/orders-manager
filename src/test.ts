@@ -1,3 +1,3 @@
 import { AppUtils } from './utils/app.utils'
-const r = AppUtils.multiply(1, 2, 5)
+const r = AppUtils.average(1, 2, 3)
 console.log(r);

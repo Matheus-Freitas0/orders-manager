@@ -36,4 +36,12 @@ describe('AppUtils_Multiply', () => {
             AppUtils.sum(true, 10)
         }).toThrow('so pode numeros')
     })
+
+    describe('AppUtils_Average', () => {
+        test('deve calcular a media dos numeros', () => {
+            const averageResult = AppUtils.average(1, 2, 3)
+            expect(averageResult).toBe(2)
+            })
+            
+    })
 })
