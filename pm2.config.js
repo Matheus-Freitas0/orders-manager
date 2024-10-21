@@ -4,7 +4,7 @@ module.exports = {
             name: 'orders-manager-pm2',
             script: 'dist/src/main.js',
             watch: true,
-            instances: 2,
+            instances: 1,
             exec_mode: 'cluster',
             autorestart: true,
             env: {
