@@ -28,31 +28,31 @@ describe("AppUtils_Multiply", () => {
   test("deve retornar um erro quando for passado qualquer parametro com numero negativo", () => {
     expect(() => {
       AppUtils.multiply(-1, 10);
-    }).toThrow("não pode negativo");
+    }).toThrow("nao pode negativo");
   });
 
-  test("deve retornar um erro quando for passado qualquer parametro que não seja um numero", () => {
+  test("deve retornar um erro quando for passado qualquer parametro que nao seja um numero", () => {
     expect(() => {
       AppUtils.multiply(true, 10);
-    }).toThrow("só pode numeros");
+    }).toThrow("so pode numeros");
   });
 });
 
 describe("AppUtils_Average", () => {
-  test("deve calcular a média dos numeros", () => {
+  test("deve calcular a media dos numeros", () => {
     const averageResult = AppUtils.average(1, 2, 3);
     expect(averageResult).toBe(2);
   });
 
-  test("deve retornar um erro quando for passado qualquer parametro que não seja um numero", () => {
+  test("deve retornar um erro quando for passado qualquer parametro que nao seja um numero", () => {
     expect(() => {
       AppUtils.average(true, 10);
-    }).toThrow("só pode numeros");
+    }).toThrow("so pode numeros");
   });
 
-  test("deve retornar um erro quando a lista for vazia", () => {
+  test("deve retornar um erro quando lista for vazia", () => {
     expect(() => {
       AppUtils.average();
-    }).toThrow("lista não pode estar vazia");
+    }).toThrow("lista nao pode estar vazia");
   });
 });
