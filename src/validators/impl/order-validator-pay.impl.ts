@@ -1,5 +1,12 @@
-// jogar estas validações para o strategy
-      
+import { OrderErrorDTO } from "../../dto/order-error.dto";
+import { OrderRequest } from "../../dto/order-request.dto";
+import { OrderValidator } from "../order.validator";
+
+export class OrderValidatorPayImpl implements OrderValidator {
+    async validate(orderRequest: OrderRequest, orderMetadata?: { [name: string]: any }): Promise<OrderErrorDTO[]> {
+        const errors: OrderErrorDTO[] = []
+    }
+}      
 // if (new Date(createdEnd) < new Date(createdInit)) {
 //     res
 //       .status(400)

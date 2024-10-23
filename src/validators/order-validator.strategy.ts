@@ -1,7 +1,6 @@
 import { Inject, InjectArray } from '../config/container.config'
 import { OrderErrorDTO } from '../dto/order-error.dto'
 import { OrderRequest } from '../dto/order-request.dto'
-import { CustomerService } from '../services/customer.service'
 import { ProductService } from '../services/product.service'
 import { OrderValidator } from './order.validator'
 
