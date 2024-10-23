@@ -11,7 +11,6 @@ new QueueMessagesRegistry()
 const expressServer = new ExpressServerConfig()
 expressServer
     .basicConfig()
-    .configEjsEngine()
     .routesRegistry()
     .startServer()
 
