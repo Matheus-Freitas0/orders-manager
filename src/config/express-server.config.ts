@@ -3,7 +3,6 @@ import {Express} from "express-serve-static-core"
 import  express from "express"
 import { RoutesRegistryConfig } from "./routes-registry.config"
 import environment from "./environments/environments"
-import path from "path"
 
 export class ExpressServerConfig{
     private app : Express
