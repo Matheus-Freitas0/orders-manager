@@ -3,6 +3,7 @@ import {Express} from "express-serve-static-core"
 import  express from "express"
 import { RoutesRegistryConfig } from "./routes-registry.config"
 import environment from "./environments/environments"
+import path from "path"
 
 export class ExpressServerConfig{
     private app : Express
@@ -18,6 +19,14 @@ export class ExpressServerConfig{
     return this
     }
 
+    configEjsEngine(): ExpressServerConfig{
+        this.app.set('view engine', 'ejs')
+        this.app.set('views', path.join(__dirname, 'views'))
+
+        this.app.use(express.static('./static/assets'))
+
+        return this
+    }
     routesRegistry(): ExpressServerConfig{   
         this.app.use(function(req,res, next){
             res.header("Access-Control-Allow-Origin", "*")
