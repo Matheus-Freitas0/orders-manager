@@ -73,13 +73,7 @@ export class OrderServiceImpl implements OrderService {
     };
   }
 
-  async getAll(
-    pageSize: number,
-    pageNumber: number,
-    orderStatus: string,
-    initDate: string,
-    endDate: string
-  ): Promise<Paged<Order>> {
+  async getAll(pageSize: number,pageNumber: number,orderStatus: string,initDate: string,endDate: string): Promise<Paged<Order>> {
     const totalItems = await this.repository.count(
       orderStatus,
       initDate,
@@ -95,7 +89,6 @@ export class OrderServiceImpl implements OrderService {
     );
 
     const ordersPaged = new Paged<Order>(pageNumber, orders, totalItems);
-
     return ordersPaged;
   }
   async pay(orderPayRequest: OrderPayRequest): Promise<void> {
